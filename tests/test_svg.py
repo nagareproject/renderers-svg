@@ -17,21 +17,21 @@ from nagare.renderers.svg import Renderer
 
 def test_namespaces():
     s = Renderer()
-    assert s.rect(s.line).tostring() == '<rect xmlns="http://www.w3.org/2000/svg"><line/></rect>'
+    assert s.rect(s.line).tostring() == b'<rect xmlns="http://www.w3.org/2000/svg"><line/></rect>'
 
     s = Renderer()
     s.namespaces = None
-    assert s.rect(s.line).tostring() == '<rect><line/></rect>'
+    assert s.rect(s.line).tostring() == b'<rect><line/></rect>'
 
     s = Renderer()
     s.namespaces = {'svg': s.namespace}
     s.default_namespace = 'svg'
-    assert s.rect(s.line).tostring() == '<svg:rect xmlns:svg="http://www.w3.org/2000/svg"><svg:line/></svg:rect>'
+    assert s.rect(s.line).tostring() == b'<svg:rect xmlns:svg="http://www.w3.org/2000/svg"><svg:line/></svg:rect>'
 
     s = Renderer()
     x = xml.Renderer()
     root = x.content(x.section(s.rect(s.line)), x.section(s.rect(s.line)))
-    assert root.tostring() == '<content><section><rect xmlns="http://www.w3.org/2000/svg"><line/></rect></section><section><rect xmlns="http://www.w3.org/2000/svg"><line/></rect></section></content>'
+    assert root.tostring() == b'<content><section><rect xmlns="http://www.w3.org/2000/svg"><line/></rect></section><section><rect xmlns="http://www.w3.org/2000/svg"><line/></rect></section></content>'
 
 
 def test_load():
@@ -44,6 +44,6 @@ def test_load():
 def test_global():
     s = Renderer()
     with s.svg:
-        s << s.ellipse(rx=100, ry=75, cx=50, cy=60)
+        s << s.ellipse(rx=100)
 
-    assert s.root.tostring() == '<svg xmlns="http://www.w3.org/2000/svg"><ellipse cy="60" cx="50" rx="100" ry="75"/></svg>'
+    assert s.root.tostring() == b'<svg xmlns="http://www.w3.org/2000/svg"><ellipse rx="100"/></svg>'
