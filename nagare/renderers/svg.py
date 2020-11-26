@@ -71,8 +71,8 @@ class Renderer(XmlRenderer):
     content_type = 'image/svg+xml'
     namespace = 'http://www.w3.org/2000/svg'
 
-    def __init__(self, parent=None):
-        super(Renderer, self).__init__(parent)
+    def __init__(self, parent=None, *args, **kw):
+        super(Renderer, self).__init__(parent, *args, **kw)
 
         self.namespaces = {None: self.namespace}
 
