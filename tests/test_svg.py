@@ -1,7 +1,7 @@
 # Encoding: utf-8
 
 # --
-# Copyright (c) 2008-2022 Net-ng.
+# Copyright (c) 2008-2023 Net-ng.
 # All rights reserved.
 #
 # This software is licensed under the BSD License, as described in
@@ -31,7 +31,10 @@ def test_namespaces():
     s = Renderer()
     x = xml.Renderer()
     root = x.content(x.section(s.rect(s.line)), x.section(s.rect(s.line)))
-    assert root.tostring() == b'<content><section><rect xmlns="http://www.w3.org/2000/svg"><line/></rect></section><section><rect xmlns="http://www.w3.org/2000/svg"><line/></rect></section></content>'
+    assert (
+        root.tostring()
+        == b'<content><section><rect xmlns="http://www.w3.org/2000/svg"><line/></rect></section><section><rect xmlns="http://www.w3.org/2000/svg"><line/></rect></section></content>'
+    )
 
 
 def test_load():
